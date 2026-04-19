@@ -60,8 +60,8 @@ val platformPaths = setOf(
     ":bungeecord",
     ":velocity",
     ":fabric",
-    ":neoforge",
-    ":forge"
+    ":neoforge"
+//    ":forge"
 )
 
 val specialPaths = setOf(

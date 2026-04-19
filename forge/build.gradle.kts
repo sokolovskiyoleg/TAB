@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id("dev.architectury.loom")
+    id("dev.architectury.loom-no-remap")
 }
 
 repositories {

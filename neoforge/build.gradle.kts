@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id("dev.architectury.loom")
+    id("dev.architectury.loom-no-remap")
 }
 
 repositories {
@@ -41,7 +41,6 @@ val neoforgeApiVersions = mapOf(
 
 dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
-    mappings(loom.officialMojangMappings())
     neoForge("net.neoforged:neoforge:${neoforgeApiVersions[minecraftVersion]}")
     api(projects.shared)
     compileOnly("net.luckperms:api:5.4")
