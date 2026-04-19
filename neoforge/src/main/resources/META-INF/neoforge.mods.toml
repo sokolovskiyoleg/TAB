@@ -9,7 +9,7 @@ modId = "tab"
 version = "@version@"
 displayName = "@name@"
 authors = "@author@"
-credits = "@project_credits@"
+credits = "@credits@"
 description = '''@description@'''
 
 [[dependencies.tab]]

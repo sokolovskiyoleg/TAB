@@ -41,7 +41,7 @@ sourceSets.main {
             property("description", project.description)
             property("website", rootProject.ext.get("website")!!.toString())
             property("author", rootProject.ext.get("author")!!.toString())
-            property("project_credits", rootProject.ext.get("credits")!!.toString())
+            property("credits", rootProject.ext.get("credits")!!.toString())
         }
     }
 }

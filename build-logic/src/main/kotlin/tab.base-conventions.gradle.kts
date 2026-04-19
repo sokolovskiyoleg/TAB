@@ -14,7 +14,7 @@ tasks {
             "description" to project.description,
             "website" to rootProject.ext.get("website")!!.toString(),
             "author" to rootProject.ext.get("author")!!.toString(),
-            "project_credits" to rootProject.ext.get("credits")!!.toString()
+            "credits" to rootProject.ext.get("credits")!!.toString()
         ))
     }
     javadoc {
