@@ -7,6 +7,7 @@ import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.logging.LogUtils;
 import eu.pb4.placeholders.api.PlaceholderContext;
 import eu.pb4.placeholders.api.Placeholders;
+import eu.pb4.placeholders.api.node.TextNode;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import me.neznamy.tab.platforms.fabric.hook.FabricTabExpansion;
@@ -70,9 +71,9 @@ public record FabricPlatform(MinecraftServer server) implements BackendPlatform 
 
         PlaceholderManagerImpl manager = TAB.getInstance().getPlaceholderManager();
         manager.registerPlayerPlaceholder(identifier,
-                p -> Placeholders.parseText(
-                        Component.literal(identifier),
-                        PlaceholderContext.of((ServerPlayer) p.getPlayer())
+                p -> Placeholders.SERVER_PLACEHOLDER_PARSER.parseComponent(
+                        TextNode.convert(Component.literal(identifier)),
+                        PlaceholderContext.of((ServerPlayer) p.getPlayer()).asParserContext()
                 ).getString()
         );
     }
