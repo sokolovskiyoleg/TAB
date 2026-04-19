@@ -8,13 +8,13 @@ modId = "tab"
 version = "@version@"
 displayName = "@name@"
 authors = "@author@"
-credits = "@credits@"
+credits = "@project_credits@"
 description = '''@description@'''
 displayURL = "@website@"
 
 [[dependencies.tab]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[26.1.0, 26.1.2]"
+versionRange = "[26.1, 26.1.2]"
 ordering = "NONE"
 side = "SERVER"
