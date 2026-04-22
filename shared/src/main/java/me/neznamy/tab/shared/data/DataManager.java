@@ -37,16 +37,16 @@ public class DataManager {
      * @param   configuration
      *          Global playerlist configuration to apply
      */
-    public void applyConfiguration(@NotNull GlobalPlayerListConfiguration configuration) {
+    public void applyConfiguration(@Nullable GlobalPlayerListConfiguration configuration) {
         globalPlayerListConfiguration = configuration;
-        for (String server : configuration.getSpyServers()) {
-            servers.computeIfAbsent(server, Server::new).markSpyServer();
+        if (configuration != null) {
+            for (String server : configuration.getSpyServers()) {
+                servers.computeIfAbsent(server, Server::new).markSpyServer();
+            }
+            for (Map.Entry<String, List<String>> entry : configuration.getSharedServers().entrySet()) {
+                serverGroups.put(entry.getKey(), new ServerGroup(entry.getKey(), entry.getValue()));
+            }
         }
-
-        for (Map.Entry<String, List<String>> entry : configuration.getSharedServers().entrySet()) {
-            serverGroups.put(entry.getKey(), new ServerGroup(entry.getKey(), entry.getValue()));
-        }
-
         for (Server server : servers.values()) {
             server.setServerGroup(computeServerGroup(server));
         }

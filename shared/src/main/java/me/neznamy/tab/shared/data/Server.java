@@ -61,12 +61,17 @@ public class Server {
     /**
      * Checks whether this server can see the other server in global playerlist.
      * Spy-servers can see all servers, other servers can only see servers in the same group.
+     * If global playerlist is disabled, returns {@code true} if this server is equal to the other one.
      *
      * @param   other
      *          Other server to check visibility to
      * @return  {@code true} if this server can see the other server, {@code false} if not
      */
     public boolean canSee(@NotNull Server other) {
-        return isSpyServer || serverGroup == other.serverGroup;
+        if (this == other) return true; // same server can always see itself
+        if (TAB.getInstance().getConfiguration().getConfig().getGlobalPlayerList() != null) {
+            return isSpyServer || serverGroup == other.serverGroup;
+        }
+        return false;
     }
 }
