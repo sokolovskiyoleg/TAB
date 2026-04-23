@@ -22,8 +22,7 @@ public class FabricEventListener implements EventListener<ServerPlayer> {
         ServerPlayConnectionEvents.JOIN.register((connection, sender, server) -> {
             TAB.getInstance().addTablistTracker(
                     connection.player.getUUID(),
-                    connection.player.connection.connection.channel,
-                    new FabricTabListEntryTracker()
+                    new FabricTabListEntryTracker(connection.player.connection.connection.channel)
             );
             join(connection.player);
         });
