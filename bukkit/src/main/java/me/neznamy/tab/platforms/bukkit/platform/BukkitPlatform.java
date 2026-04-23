@@ -143,7 +143,8 @@ public class BukkitPlatform implements BackendPlatform {
     @Override
     @Nullable
     public PipelineInjector createPipelineInjector() {
-        return ReflectionUtils.classExists("io.netty.channel.Channel") ? new BukkitPipelineInjector() : null;
+        return serverVersionInfo.getServerVersion().getNetworkId() >= ProtocolVersion.V1_8.getNetworkId()
+                ? new BukkitPipelineInjector() : null;
     }
 
     @Override
