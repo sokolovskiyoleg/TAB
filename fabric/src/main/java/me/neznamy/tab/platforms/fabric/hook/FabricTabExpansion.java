@@ -1,16 +1,12 @@
 package me.neznamy.tab.platforms.fabric.hook;
 
-import eu.pb4.placeholders.api.PlaceholderContext;
-import eu.pb4.placeholders.api.PlaceholderHandler;
-import eu.pb4.placeholders.api.PlaceholderResult;
-import eu.pb4.placeholders.api.Placeholders;
+import eu.pb4.placeholders.api.*;
 import lombok.Getter;
 import me.neznamy.tab.shared.ProjectVariables;
 import me.neznamy.tab.shared.TAB;
 import me.neznamy.tab.shared.features.PlaceholderManagerImpl;
 import me.neznamy.tab.shared.placeholders.expansion.TabExpansion;
 import me.neznamy.tab.shared.platform.TabPlayer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import java.util.Arrays;
@@ -60,9 +56,9 @@ public class FabricTabExpansion implements TabExpansion {
                 textBefore = text;
                 for (String placeholder : PlaceholderManagerImpl.detectPlaceholders(text)) {
                     text = text.replace(placeholder, TAB.getInstance().getPlaceholderManager().findReplacement(placeholder,
-                            Placeholders.parseText(
-                                    Component.literal(placeholder),
-                                    PlaceholderContext.of(ctx.player())
+                            Placeholders.SERVER_PLACEHOLDER_PARSER.parseComponent(
+                                    placeholder,
+                                    PlaceholderContext.of(ctx.player()).asParserContext()
                             ).getString()));
                 }
             } while (!textBefore.equals(text));
@@ -82,8 +78,8 @@ public class FabricTabExpansion implements TabExpansion {
         });
     }
 
-    private void registerPlaceholder(String identifier, PlaceholderHandler handler) {
-        Placeholders.register(Identifier.tryParse(ProjectVariables.PLUGIN_ID+":"+identifier), handler);
+    private void registerPlaceholder(String identifier, Placeholder.Handler<ServerPlaceholderContext, String> handler) {
+        Placeholders.registerServer(Identifier.tryParse(ProjectVariables.PLUGIN_ID+":"+identifier), handler);
     }
 
     @Override

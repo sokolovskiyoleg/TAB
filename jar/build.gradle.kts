@@ -48,8 +48,8 @@ val platformPaths = setOf(
 
 val moddedPaths = setOf(
     ":fabric",
-    ":neoforge",
-    ":forge"
+    ":neoforge"
+//    ":forge"
 )
 
 val platforms: List<Project> = platformPaths.map { rootProject.project(it) }
@@ -72,7 +72,7 @@ tasks {
         }
 
         moddedPlatforms.forEach { p ->
-            val task = p.tasks.named<Jar>("remapJar").get()
+            val task = p.tasks.named<Jar>("jar").get()
             registerPlatform(p, task)
         }
     }
