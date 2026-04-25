@@ -57,7 +57,7 @@ val moddedPlatforms: List<Project> = moddedPaths.map { rootProject.project(it) }
 
 tasks {
     shadowJar {
-        archiveFileName.set("TAB-${project.version}.jar")
+        archiveFileName.set("TAB v${project.version} - Fabric, NeoForge.jar")
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
         fun registerPlatform(project: Project, jarTask: AbstractArchiveTask) {
@@ -76,5 +76,23 @@ tasks {
             registerPlatform(p, task)
         }
     }
-    build.get().dependsOn(shadowJar)
+
+    val shadowJarVanilla = register<ShadowJar>("shadowJarVanilla") {
+        description = "Shadows only vanilla platforms, without any modded platforms that require Java 25+."
+        archiveFileName.set("TAB v${project.version} - Vanilla.jar")
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+        fun registerPlatform(project: Project, jarTask: AbstractArchiveTask) {
+            dependsOn(jarTask)
+            dependsOn(project.tasks.withType<Jar>())
+            from(zipTree(jarTask.archiveFile))
+        }
+
+        platforms.forEach { p ->
+            val task = p.tasks.named<ShadowJar>("shadowJar").get()
+            registerPlatform(p, task)
+        }
+    }
+
+    build.get().dependsOn(shadowJar, shadowJarVanilla)
 }
