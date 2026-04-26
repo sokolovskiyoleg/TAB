@@ -191,7 +191,7 @@ public class GlobalPlayerList extends RefreshableFeature implements JoinListener
     @Override
     public void onGameModeChange(@NotNull TabPlayer player) {
         for (TabPlayer viewer : onlinePlayers.getPlayers()) {
-            if (player.server != viewer.server) {
+            if (player.server != viewer.server && viewer.server.canSee(player.server)) {
                 viewer.getTabList().updateGameMode(player, configuration.isOthersAsSpectators() ? 3 : player.getGamemode());
             }
         }
